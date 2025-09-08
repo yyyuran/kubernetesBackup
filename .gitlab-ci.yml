@@ -17,13 +17,7 @@ build:
       --dockerfile $CI_PROJECT_DIR/Dockerfile
       --destination $CI_REGISTRY_IMAGE:$BUILD_TAG
     - echo "Building watcher container"
-    - >-
-      /kaniko/executor
-      --context dir://$CI_PROJECT_DIR/
-      --context dir://$CI_PROJECT_DIR/
-      --dockerfile $CI_PROJECT_DIR/fileWatcher.Dockerfile
-      --destination $CI_REGISTRY_IMAGE:watcher-$BUILD_TAG
-      --build-arg BASE_CONTAINER_VERSION=$BUILD_TAG
+
 
 auto_deploy_staging:
   script:
