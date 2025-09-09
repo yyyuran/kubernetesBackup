@@ -1,6 +1,8 @@
 # Use the official Alpine Linux base image
 FROM alpine:latest
 
+RUN apk update && apk add bash
+
 # Install necessary packages for downloading and extracting kubectl
 RUN apk add --no-cache curl tar gzip
 
