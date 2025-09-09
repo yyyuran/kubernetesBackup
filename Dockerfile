@@ -21,4 +21,4 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
 #CMD ["kubectl", "config", "set-context","--cluster=local-cluster","--namespace=default","--user=sa-runner"]
 #CMD ["kubectl", "get", "nodes"]
 #CMD ["kubectl", "get", "namespaces"]
-CMD ["sh", "-c", "kubectl get nodes ; echo 12345678 ; kubectl get namespaces"]
+CMD ["sh", "-c", "kubectl get nodes ; echo 12345678 ; kubectl get namespaces; df -h"]
