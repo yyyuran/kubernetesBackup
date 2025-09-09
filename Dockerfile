@@ -13,5 +13,5 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
     mv kubectl /usr/local/bin/kubectl
 
 # Set the entrypoint to kubectl, allowing commands to be passed as arguments
-ENTRYPOINT ["kubectl"]
-CMD [""kubectl options"]
+#ENTRYPOINT ["kubectl"]
+CMD ["kubectl", "options"]
