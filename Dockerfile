@@ -21,4 +21,4 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
 #CMD ["kubectl", "config", "set-context","--cluster=local-cluster","--namespace=default","--user=sa-runner"]
 #CMD ["kubectl", "get", "nodes"]
 #CMD ["kubectl", "get", "namespaces"]
-CMD ["sh", "-c", "kubectl cp site/site-bitrix-app-mysql-0:/tmp/backup.sql /tmp/backup.sql; ls -l /tmp"]
+CMD ["sh", "-c", "kubectl cp site/site-bitrix-app-mysql-0:/tmp/backup.sql /nfs-data/backup.sql; ls -l /nfs-data"]
