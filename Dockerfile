@@ -14,4 +14,7 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
 
 # Set the entrypoint to kubectl, allowing commands to be passed as arguments
 #ENTRYPOINT ["kubectl"]
+#    - kubectl config set-context default --cluster=local-cluster --namespace=default --user=sa-runner;
+#    - kubectl config use-context default;
+CMD ["kubectl", "config", "set-context","--cluster=local-cluster","--namespace=default","--user=sa-runner"]
 CMD ["kubectl", "get", "nodes"]
