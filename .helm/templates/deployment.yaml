@@ -35,8 +35,8 @@ spec:
             name: test-volume
       volumes:
       - name: test-volume
-          nfs:
-            server: //10.57.0.77:/home/KVM_1/backup/nfs_2
-            path: /mysql
-            readOnly: false
+        nfs:
+          server: //10.57.0.77:/home/KVM_1/backup/nfs_2
+          path: /mysql
+          readOnly: false
           
