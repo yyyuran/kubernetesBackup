@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: hello
+  name: {{ include "app.fullname" . }}-BackupBitrixMysql
 spec:
-  schedule: "* * * * *"
+  schedule: "0-59/5 * * * *"
   jobTemplate:
     spec:
       template:
