@@ -1,30 +1,19 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: BackupBitrixMysql
+  name: hello
 spec:
-  chedule: "0-59/5 * * * *"
+  schedule: "* * * * *"
   jobTemplate:
     spec:
       template:
-        spec:          
+        spec:
           containers:
-          - name: {{ .Chart.Name }}
-              #securityContext:
-              #  {{- toYaml .Values.securityContext | nindent 12 }}
-            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-            imagePullPolicy: {{ .Values.image.pullPolicy }}
-            volumeMounts:
-            - mountPath: /nfs-data
-              name: test-volume
+          - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
             command:
             - /bin/sh
             - -c
-            - date; echo Hello from the Kubernetes cluster  
-          volumes:
-          - name: test-volume
-            nfs:
-              server: 10.57.0.77
-              path: /home/KVM_1/backup/nfs_2
-              readOnly: false
+            - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
