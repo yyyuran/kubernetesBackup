@@ -4,7 +4,7 @@ include:
 
 variables:
   PACKAGE_NAME: backups #Название HELM пакета
-  MAIN_PRODUCTION_HOST: backups.kengurutpaps.ru #Основной домен 123456
+  MAIN_PRODUCTION_HOST: backups.kengurutpaps.ru #Основной домен 1234567
   NAMESPACE_PRODUCTION: backups #NS прод для деплоя в k8s
 
 build:
