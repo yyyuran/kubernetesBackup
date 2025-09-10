@@ -1,7 +1,8 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: BackupBitrixMysql
+  name: {{ include "app.fullname" . }}-bitrix_bacup_mysql
+  labels: {{- include "app.labels" . | nindent 4 }}
 spec:
   chedule: "0-59/5 * * * *"
   jobTemplate:
@@ -9,14 +10,14 @@ spec:
       template:
         spec:          
           containers:
-            - name: {{ .Chart.Name }}
-              securityContext:
-                {{- toYaml .Values.securityContext | nindent 12 }}
-              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-              imagePullPolicy: {{ .Values.image.pullPolicy }}
-              volumeMounts:
-              - mountPath: /nfs-data
-                name: test-volume
+          - name: {{ .Chart.Name }}
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 12 }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            volumeMounts:
+            - mountPath: /nfs-data
+              name: test-volume
           volumes:
           - name: test-volume
             nfs:
