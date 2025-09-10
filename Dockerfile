@@ -2,6 +2,7 @@
 FROM alpine:latest
 
 RUN apk update && apk add bash
+RUN apk add tzdata 
 
 # Install necessary packages for downloading and extracting kubectl
 RUN apk add --no-cache curl tar gzip
@@ -23,4 +24,4 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
 #CMD ["kubectl", "get", "namespaces"]
 
 
-CMD ["sh", "-c", "apk add tzdata && ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && dd=$(date +'%F_%H-%M-%S') && echo $dd && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=iOPt6ZXGtn7zEjxsub3MoDLwAa51EQP8 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' && ls -l /nfs-data"]
+CMD ["sh", "-c", "ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && dd=$(date +'%F_%H-%M-%S') && echo $dd && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=iOPt6ZXGtn7zEjxsub3MoDLwAa51EQP8 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' && ls -l /nfs-data"]
