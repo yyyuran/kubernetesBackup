@@ -18,10 +18,10 @@ spec:
             volumeMounts:
             - mountPath: /nfs-data
               name: test-volume
-          volumes:
-          - name: test-volume
-            nfs:
-              server: 10.57.0.77
-              path: /home/KVM_1/backup/nfs_2
-              readOnly: false
+            volumes:
+            - name: test-volume
+              nfs:
+                server: 10.57.0.77
+                path: /home/KVM_1/backup/nfs_2
+                readOnly: false
           restartPolicy: OnFailure
