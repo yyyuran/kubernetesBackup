@@ -23,4 +23,4 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
 #CMD ["kubectl", "get", "namespaces"]
 
 
-CMD ["sh", "-c", "dd=$(date +'%F_%T_%3N') && echo $dd && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=iOPt6ZXGtn7zEjxsub3MoDLwAa51EQP8 --routines bitrix-app > /tmp/btrx_+$dd+.sql' && kubectl cp site/site-bitrix-app-mysql-0:/tmp/btrx_+$dd+.sql /nfs-data/btrx_+$dd+.sql && ls -l /nfs-data"]
+CMD ["sh", "-c", "dd=$(date +'%F_%H-%M-%S-%3N') && echo $dd && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=iOPt6ZXGtn7zEjxsub3MoDLwAa51EQP8 --routines bitrix-app > /tmp/btrx_+$dd+.sql' && kubectl cp site/site-bitrix-app-mysql-0:/tmp/btrx_+$dd+.sql /nfs-data/btrx_+$dd+.sql && ls -l /nfs-data"]
