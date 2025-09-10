@@ -12,8 +12,8 @@ spec:
           - name: {{ .Chart.Name }}
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
             imagePullPolicy:  {{ .Values.image.pullPolicy }}
-            command:
-            - /bin/sh
-            - -c
-            - date; echo Hello from the Kubernetes cluster
+            #command:
+            #- /bin/sh
+            #- -c
+            #- date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
