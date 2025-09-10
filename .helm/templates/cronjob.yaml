@@ -17,6 +17,10 @@ spec:
             volumeMounts:
             - mountPath: /nfs-data
               name: test-volume
+            command:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster  
           volumes:
           - name: test-volume
             nfs:
