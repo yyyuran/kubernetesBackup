@@ -3,8 +3,8 @@ kind: CronJob
 metadata:
   name: {{ include "app.fullname" . }}-bitrix-mysql
 spec:
-  schedule: "0-59/15 * * * *"
-  #schedule: "30 7 * * *"
+  #schedule: "0-59/15 * * * *"
+  schedule: "14 10 * * *"
   jobTemplate:
     spec:
       template:
