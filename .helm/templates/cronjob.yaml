@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-bitrix-mysql
 spec:
   #schedule: "0-59/15 * * * *"
-  schedule: "14 12 * * *"
+  schedule: "26 12 * * *"
   jobTemplate:
     spec:
       template:
@@ -31,7 +31,7 @@ spec:
           volumes:
           - name: test-volume
             nfs:
-              server: 10.57.0.77
-              path: /home/KVM_1/backup/nfs_2
+              server: 10.57.0.15
+              path: /home/Backup_DISK1/backup_kenguru.ru/bitrix_mysql
               readOnly: false
           restartPolicy: OnFailure
