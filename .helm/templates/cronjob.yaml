@@ -16,7 +16,9 @@ spec:
             command:
             - /bin/sh
             - -c
-            - dd=$(date +'%F_%H-%M-%S') && echo $dd && ls -l /nfs-data
+            - dd=$(date +'%F_%H-%M-%S') \
+              && echo $dd \
+              && ls -l /nfs-data \
             volumeMounts:
             - mountPath: /nfs-data
               name: test-volume
