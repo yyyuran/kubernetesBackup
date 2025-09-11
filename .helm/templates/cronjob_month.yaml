@@ -23,7 +23,7 @@ spec:
               kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=iOPt6ZXGtn7zEjxsub3MoDLwAa51EQP8 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && 
               kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && 
               kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' && 
-              find /nfs-data* -mtime +10 -delete && 
+              find /nfs-data* -mtime +160 -delete && 
               ls -l /nfs-data 
             volumeMounts:
             - mountPath: /nfs-data
