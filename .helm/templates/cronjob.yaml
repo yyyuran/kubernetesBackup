@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: {{ include "app.fullname" . }}-bitrix-mysql
 spec:
-  schedule: "0-59/5 * * * *"
+  schedule: "0-59/1 * * * *"
   #schedule: "30 7 * * *"
   jobTemplate:
     spec:
@@ -16,8 +16,8 @@ spec:
             command:
             - /bin/sh
             - -c
-            #- ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
-            - dd=$(date +'%F_%H-%M-%S') \
+            - ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
+              && dd=$(date +'%F_%H-%M-%S') \
               && echo $dd \
               && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=iOPt6ZXGtn7zEjxsub3MoDLwAa51EQP8 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' \
               && kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql \
