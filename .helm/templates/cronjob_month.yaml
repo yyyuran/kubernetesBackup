@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-bitrix-mysql-mount
 spec:
   #schedule: "0-59/15 * * * *"
-  schedule: "35 11 12 * *"
+  schedule: "40 11 12 * *"
   jobTemplate:
     spec:
       template:
