@@ -15,13 +15,3 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
     chmod +x kubectl && \
     mv kubectl /usr/local/bin/kubectl
 
-# Set the entrypoint to kubectl, allowing commands to be passed as arguments
-#ENTRYPOINT ["kubectl"]
-#    - kubectl config set-context default --cluster=local-cluster --namespace=default --user=sa-runner;
-#    - kubectl config use-context default;
-#CMD ["kubectl", "config", "set-context","--cluster=local-cluster","--namespace=default","--user=sa-runner"]
-#CMD ["kubectl", "get", "nodes"]
-#CMD ["kubectl", "get", "namespaces"]
-
-#CMD ["sh", "-c","ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime"]
-#CMD ["sh", "-c", "ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && dd=$(date +'%F_%H-%M-%S') && echo $dd && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=iOPt6ZXGtn7zEjxsub3MoDLwAa51EQP8 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' && ls -l /nfs-data"]
