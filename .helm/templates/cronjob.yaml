@@ -41,3 +41,4 @@ spec:
               path: /home/Backup_DISK1/backup_kenguru.ru/bitrix_mysql
               readOnly: false
           restartPolicy: OnFailure
+          backoffLimit: 3
