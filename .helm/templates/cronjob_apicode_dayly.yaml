@@ -26,12 +26,12 @@ spec:
               ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && 
               dd=$(date +'%F_%H-%M-%S') && 
               echo $dd && 
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' &&
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=HJu15f713fqb7cdivHgnNktOrXWWraq1 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && 
-              kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && 
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' && 
-              find /nfs-data* -mtime +10 -delete && 
-              ls -l /nfs-data 
+              # kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' &&
+              # kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=HJu15f713fqb7cdivHgnNktOrXWWraq1 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && 
+              kubectl cp site/site-bitrix-app-mysql-0:/ /app/api* /nfs-data/it-api-code && 
+              # kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' && 
+              #find /nfs-data* -mtime +10 -delete && 
+              ls -l /nfs-data/it-api-code 
             volumeMounts:
             - mountPath: /nfs-data
               name: test-volume
