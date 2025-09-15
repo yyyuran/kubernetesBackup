@@ -35,7 +35,7 @@ spec:
           - name: test-volume
             nfs:
               server: 10.57.0.15
-              path: /home/Backup_DISK1/backup_kenguru.ru/bitrix_mysql
+              path: /home/Backup_DISK1/backup_kenguru.ru/
               readOnly: false
           restartPolicy: OnFailure
           backoffLimit: 3
