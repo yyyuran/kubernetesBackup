@@ -27,7 +27,7 @@ spec:
               dd=$(date +'%F_%H-%M-%S') && 
               echo $dd &&                             
               kubectl cp site/bitrix-app-app-557599fbd7-zlfg5:/app/api/ /nfs-data/it-api-code_month/$dd -c bitrix-app &&       
-              find /nfs-data/it-api-code_month* -mtime +160 -delete && 
+              find /nfs-data/it-api-code_month* -mtime +160 -delete ; 
               ls -l /nfs-data/it-api-code_month/$dd 
             volumeMounts:
             - mountPath: /nfs-data
