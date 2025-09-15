@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-bitrix-api-code-month
 spec:
   ##schedule: "0-59/15 * * * *"
-  schedule: "40 12 15 * *"
+  schedule: "0 13 15 * *"
   jobTemplate:
     spec:
       template:
