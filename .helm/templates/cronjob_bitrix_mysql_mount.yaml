@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "app.fullname" . }}-bitrix-mysql-mount
+  name: {{ include "app.fullname" . }}-bitrix-mysql-month
 spec:
   #schedule: "0-59/15 * * * *"
   schedule: "0 15 12 * *"
