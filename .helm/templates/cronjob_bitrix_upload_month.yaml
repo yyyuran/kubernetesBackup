@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "app.fullname" . }}-bitrix-upload-month
+spec:
+  ###schedule: "0-59/15 * * * *"
+  schedule: "0 17 16 * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+          - name: {{ .Chart.Name }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy:  {{ .Values.image.pullPolicy }}
+            command:
+            - /bin/sh
+            - -c
+            - |
+              ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && 
+              dd=$(date +'%F_%H-%M-%S') && 
+              podname=$(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n site | grep bitrix-app-app) && 
+              echo $dd &&                             
+              kubectl cp site/$podname:/app/upload/ /nfs-data/bitrix_upload_daily/$dd -c bitrix-app &&       
+              find /nfs-data/bitrix_upload_daily* -mtime +10 -delete ; 
+              ls -l /nfs-data/bitrix_upload_daily/$dd 
+            volumeMounts:
+            - mountPath: /nfs-data
+              name: test-volume
+          volumes:
+          - name: test-volume
+            nfs:
+              server: 10.57.0.15
+              path: /home/Backup_DISK1/backup_kenguru.ru
+              readOnly: false
+          restartPolicy: OnFailure
+          backoffLimit: 3
