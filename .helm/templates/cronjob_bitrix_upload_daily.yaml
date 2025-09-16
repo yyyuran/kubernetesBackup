@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "app.fullname" . }}-bitrix-api-code
+  name: {{ include "app.fullname" . }}-bitrix-upload-daily
 spec:
   ###schedule: "0-59/15 * * * *"
   schedule: "30 12 * * *"
