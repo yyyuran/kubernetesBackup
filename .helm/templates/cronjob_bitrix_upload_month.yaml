@@ -27,9 +27,9 @@ spec:
               dd=$(date +'%F_%H-%M-%S') && 
               podname=$(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n site | grep bitrix-app-app) && 
               echo $dd &&                             
-              kubectl cp site/$podname:/app/upload/ /nfs-data/bitrix_upload_daily/$dd -c bitrix-app &&       
-              find /nfs-data/bitrix_upload_daily* -mtime +10 -delete ; 
-              ls -l /nfs-data/bitrix_upload_daily/$dd 
+              kubectl cp site/$podname:/app/upload/ /nfs-data/bitrix_upload_month/$dd -c bitrix-app &&       
+              find /nfs-data/bitrix_upload_month* -mtime +160 -delete ; 
+              ls -l /nfs-data/bitrix_upload_month/$dd 
             volumeMounts:
             - mountPath: /nfs-data
               name: test-volume
