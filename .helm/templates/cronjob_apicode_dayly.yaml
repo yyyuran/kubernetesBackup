@@ -25,8 +25,9 @@ spec:
             - |
               ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && 
               dd=$(date +'%F_%H-%M-%S') && 
+              podname=$(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n site | grep bitrix-app-app) && 
               echo $dd &&                             
-              kubectl cp site/bitrix-app-app-557599fbd7-zlfg5:/app/api/ /nfs-data/it-api-code_daily/$dd -c bitrix-app &&       
+              kubectl cp site/$podname:/app/api/ /nfs-data/it-api-code_daily/$dd -c bitrix-app &&       
               find /nfs-data/it-api-code_daily* -mtime +10 -delete ; 
               ls -l /nfs-data/it-api-code_daily/$dd 
             volumeMounts:
