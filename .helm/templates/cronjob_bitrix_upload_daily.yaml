@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-bitrix-upload-daily
 spec:
   ###schedule: "0-59/15 * * * *"
-  schedule: "0 16 * * *"
+  schedule: "0 16 */7 * *"
   jobTemplate:
     spec:
       template:
@@ -28,7 +28,7 @@ spec:
               podname=$(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n site | grep bitrix-app-app) && 
               echo $dd &&                             
               kubectl cp site/$podname:/app/upload/ /nfs-data/bitrix_upload_daily/$dd -c bitrix-app &&       
-              find /nfs-data/bitrix_upload_daily* -mtime +10 -delete ; 
+              find /nfs-data/bitrix_upload_daily* -mtime +30 -delete ; 
               ls -l /nfs-data/bitrix_upload_daily/$dd 
             volumeMounts:
             - mountPath: /nfs-data
