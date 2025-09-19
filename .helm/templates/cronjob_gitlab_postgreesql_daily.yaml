@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-gitlab-postgreesql-daily
 spec:
   #schedule: "0-59/15 * * * *"
-  schedule: "0 14 * * *"
+  schedule: "32 7 * * *"
   jobTemplate:
     spec:
       template:
@@ -26,10 +26,11 @@ spec:
               ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && 
               dd=$(date +'%F_%H-%M-%S') && 
               echo $dd && 
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' ;
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=HJu15f713fqb7cdivHgnNktOrXWWraq1 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && 
-              kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && 
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' ; 
+              kubectl -n gitlab exec --stdin --tty  postgres-7d76b5f78f-jzqfn -- /bin/bash -c  'rm /tmp/gitlab* ' ;              
+              kubectl -n gitlab exec --stdin --tty  postgres-7d76b5f78f-jzqfn -- /bin/bash -c  'echo 12345678' ;
+              kubectl -n gitlab exec --stdin --tty  postgres-7d76b5f78f-jzqfn -- /bin/bash -c  'pg_dump -U postgres -d gitlabhq_production -f /tmp/gitlab_postgreessql_'$dd'.sql' && 
+              kubectl cp gitlab/postgres-7d76b5f78f-jzqfn:/tmp/gitlab_postgreessql_$dd.sql /nfs-data/gitlab_postgreessql_$dd.sql &&                             
+              kubectl -n gitlab exec --stdin --tty  postgres-7d76b5f78f-jzqfn -- /bin/bash -c  'rm /tmp/gitlab* ' ;              
               find /nfs-data* -mtime +10 -delete ; 
               ls -l /nfs-data 
             volumeMounts:
@@ -39,7 +40,7 @@ spec:
           - name: test-volume
             nfs:
               server: 10.57.0.15
-              path: /home/Backup_DISK1/backup_kenguru.ru/bitrix_mysql_daily
+              path: /home/Backup_DISK1/backup_kenguru.ru/gitlab_postgreesql_daily
               readOnly: false
           restartPolicy: OnFailure
           backoffLimit: 3
