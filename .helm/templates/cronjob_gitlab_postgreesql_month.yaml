@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: {{ include "app.fullname" . }}-gitlab-postgreesql-month
 spec:
-  #schedule: "0-59/15 * * * *"
+  ##schedule: "0-59/15 * * * *"
   schedule: "45 13 19 * *"
   jobTemplate:
     spec:
