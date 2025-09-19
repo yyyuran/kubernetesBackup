@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-gitlab-postgreesql-daily
 spec:
   #schedule: "0-59/15 * * * *"
-  schedule: "35 7 * * *"
+  schedule: "30 13 * * *"
   jobTemplate:
     spec:
       template:
