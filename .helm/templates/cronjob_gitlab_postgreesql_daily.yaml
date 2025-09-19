@@ -29,7 +29,7 @@ spec:
               kubectl -n gitlab exec --stdin --tty   gitlab-postgresql-0 -- /bin/bash -c  'rm /tmp/gitlab* ' ;              
               kubectl -n gitlab exec --stdin --tty   gitlab-postgresql-0 -- /bin/bash -c  'echo 12345678' ;
               kubectl -n gitlab exec --stdin --tty   gitlab-postgresql-0 -- /bin/bash -c  ' pg_dump -w "postgresql://postgres:S1DhQVs81SoBCNgjnApcg7IQFt7uc6JOAFPSZpzROE0UQ5EqV3B1eohkF7mIKvpt@gitlab-postgresql-hl.gitlab.svc.cluster.local:5432/gitlabhq_production" > /tmp/gitlab_postgreessql_'$dd'.sql' && 
-              kubectl cp gitlab/ gitlab-postgresql-0:/tmp/gitlab_postgreessql_$dd.sql /nfs-data/gitlab_postgreessql_$dd.sql &&                             
+              kubectl cp gitlab/gitlab-postgresql-0:/tmp/gitlab_postgreessql_$dd.sql /nfs-data/gitlab_postgreessql_$dd.sql &&                             
               kubectl -n gitlab exec --stdin --tty   gitlab-postgresql-0 -- /bin/bash -c  'rm /tmp/gitlab* ' ;              
               find /nfs-data* -mtime +10 -delete ; 
               ls -l /nfs-data 
