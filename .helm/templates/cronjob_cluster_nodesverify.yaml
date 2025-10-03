@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-cluster-nodesverify
 spec:
   ###schedule: "0-59/15 * * * *"
-  schedule: "30 12 * * *"
+  schedule: "40 11 * * *"
   jobTemplate:
     spec:
       template:
