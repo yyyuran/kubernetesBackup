@@ -27,8 +27,9 @@ spec:
               dd=$(date +'%F_%H-%M-%S') &&               
               echo $dd &&                             
               count_nodes=$(kubectl get nodes  | grep " Ready" | wc -l) &&               
-              find /nfs-data/bitrix_it-api-code_daily* -mtime +10 -delete ; 
-              ls -l /nfs-data/bitrix_it-api-code_daily/$dd 
+              find /nfs-data/cluster_nodesverify* -mtime +10 -delete ; 
+              echo $dd - $count_nodes >> $dd.txt
+              ls -l /nfs-data/cluster_nodesverify/
             volumeMounts:
             - mountPath: /nfs-data
               name: test-volume
