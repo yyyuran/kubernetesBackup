@@ -4,7 +4,7 @@ metadata:
   name: {{ include "app.fullname" . }}-cluster-nodesverify
 spec:
   ###schedule: "0-59/15 * * * *"
-  schedule: "40 11 * * *"
+  schedule: "34 7 * * *"
   jobTemplate:
     spec:
       template:
@@ -28,7 +28,7 @@ spec:
               echo $dd &&                             
               count_nodes=$(kubectl get nodes  | grep " Ready" | wc -l) &&               
               find /nfs-data/cluster_nodesverify* -mtime +10 -delete ; 
-              echo $dd - $count_nodes >> $dd.txt
+              echo $dd - $count_nodes >> /nfs-data/cluster_nodesverify/$dd.txt
               ls -l /nfs-data/cluster_nodesverify/
             volumeMounts:
             - mountPath: /nfs-data
@@ -36,7 +36,7 @@ spec:
           volumes:
           - name: test-volume
             nfs:
-              server: 10.57.0.150
+              server: 10.57.0.15
               path: /home/Backup_DISK1/backup_kenguru.ru
               readOnly: false
           restartPolicy: OnFailure
