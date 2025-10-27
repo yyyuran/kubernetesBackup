@@ -39,8 +39,8 @@ spec:
           volumes:
           - name: test-volume
             nfs:
-              server: 10.57.0.15
-              path: /home/Backup_DISK1/backup_kenguru.ru/gitlab_postgreesql_month
+              server: 10.58.0.14
+              path: /home/Backup/backup_kenguru.ru/gitlab_postgreesql_month
               readOnly: false
           restartPolicy: OnFailure
           backoffLimit: 3
