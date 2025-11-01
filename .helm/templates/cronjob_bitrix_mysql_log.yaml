@@ -25,9 +25,9 @@ spec:
             - |              
               dd=$(date +'%F_%H-%M-%S') && 
               echo $dd &&               
+              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  '$dd >> /tmp/t.log' && 
               kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysql -u"root" -p"HJu15f713fqb7cdivHgnNktOrXWWraq1" -e "SELECT DB,USER,HOST,STATE FROM INFORMATION_SCHEMA.PROCESSLIST ORDER BY DB DESC;" >> /tmp/t.log' && 
-              kubectl cp site/site-bitrix-app-mysql-0:/tmp/t.log /nfs-data/t.log && 
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' ;               
+              kubectl cp site/site-bitrix-app-mysql-0:/tmp/t.log /nfs-data/t.log &&                        
               ls -l /nfs-data 
             volumeMounts:
             - mountPath: /nfs-data
