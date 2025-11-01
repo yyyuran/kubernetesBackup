@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "app.fullname" . }}-bitrix-mysql-daily
+spec:
+  #schedule: "0-59/15 * * * *"
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+          - name: {{ .Chart.Name }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy:  {{ .Values.image.pullPolicy }}
+            command:
+            - /bin/sh
+            - -c
+            - |
+              ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime && 
+              dd=$(date +'%F_%H-%M-%S') && 
+              echo $dd && 
+              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' ;
+              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=HJu15f713fqb7cdivHgnNktOrXWWraq1 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && 
+              kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && 
+              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' ; 
+              find /nfs-data* -mtime +10 -delete ; 
+              ls -l /nfs-data 
+            volumeMounts:
+            - mountPath: /nfs-data
+              name: test-volume
+          volumes:
+          - name: test-volume
+            nfs:
+              server: 10.58.0.14
+              path: /home/Backup/backup_kenguru.ru/bitrix_mysql_daily
+
+              readOnly: false
+          restartPolicy: OnFailure
+          backoffLimit: 3
