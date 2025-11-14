@@ -27,7 +27,7 @@ spec:
               dd=$(date +'%F_%H-%M-%S') && 
               echo $dd && 
               kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' ;
-              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=HJu15f713fqb7cdivHgnNktOrXWWraq1 --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && 
+              kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'mysqldump  -u root --password=***** --routines bitrix-app > /tmp/bitrix_mysql_'$dd'.sql' && 
               kubectl cp site/site-bitrix-app-mysql-0:/tmp/bitrix_mysql_$dd.sql /nfs-data/bitrix_mysql_$dd.sql && 
               kubectl -n site exec --stdin --tty site-bitrix-app-mysql-0 -- /bin/bash -c  'rm /tmp/bitrix*' ; 
               find /nfs-data* -mtime +160 -delete ; 
@@ -42,4 +42,5 @@ spec:
               path: /home/Backup/backup_kenguru.ru/bitrix_mysql_month
               readOnly: false
           restartPolicy: OnFailure
+
           backoffLimit: 3
